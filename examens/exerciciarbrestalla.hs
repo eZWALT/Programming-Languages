@@ -1,0 +1,1 @@
+data STree a = Nil |
