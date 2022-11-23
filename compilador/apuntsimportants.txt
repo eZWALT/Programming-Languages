@@ -1,0 +1,14 @@
+
+TOTES LES VARIABLES SON INTS,LOCALS SENSE I/0
+-COMPARADORS (=) , (!=), (<-)
+-OPERACIONS
+    -assignacio: VAR "<-" EXPRESSIO
+    -condicional: IF (COND) {EXPR} OR IF( COND) {EXPR}
+    -bucle:   while (COND) {EXPR} 
+    -expressions: 
+        -comparadors : =, != , < , > , 
+
+-les funcions poden tenir 0 a n parametres COMENÇEN PER MAJUSCULA
+-return de les funcions es l'avaluacio d'una expressió
+
+(
