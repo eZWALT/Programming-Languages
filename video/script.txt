@@ -1,0 +1,114 @@
+
+https://www.youtube.com/watch?v=8acVR69RYTk
+https://www.youtube.com/watch?v=kWt2QgFGkUI
+
+goofy sounds
+https://www.youtube.com/watch?v=oTSPzy8cC4o
+
+https://typealias.com/start/kotlin-nulls/
+CAFE GODLIN
+
+-SKETCH:
+    cansat de deixarte els dits escribint cada cop que crees una funció
+    curteta en els teus projectes de java?
+
+    https://www.youtube.com/watch?v=MAlSjtxy5ak
+
+
+    cansat de escriure 5000 linies de codi per classes inutils?
+
+    https://www.youtube.com/watch?v=XQtilPmhgUs
+
+    cansat d'haver d'escriure desenes de keywords per fer qualsevol getter?
+
+    private final static volatile dynamic obama motorcycle cat ArrayList<HashSet<double, boolean>> SiusPlauQueAlguEmTreguiDeAquestInfernQueEsDiuLP(AAAAAAAAAAAAAAAA) {
+        //The statement below is false
+        return Jorge;
+        //The statement above is true
+    }
+
+    cansat de que el teu superPC es sobreescalfi quan programes JAVA en android studio?
+
+    https://www.crowdfunder.co.uk/uploads/projects/235573.jpg?1493851969
+
+    et presento la solució : GODlin
+
+------------------------------------------------------------------------------------------------------------------------------------------
+HISTORIA
+
+KOTLIN VA SER UN PROJECTE QUE VA DESENVOLUPAR LENTAMENT JETBRAINS DURANT 6 ANYS, FINS QUE AL FINAL, EN 2016 VA SORTIR A LA LLUM
+ES UN LLENGUATGE MOLT NOU QUE TOT JUST S'ESTA INCORPORANT AL ECOSISTEMA, AMB GRAN VELOCITAT DEGUT A LA SEVA UTILITAT I INTER OPERABILITAT AMB JAVA
+
+------------------------------------------------------------------------------------------------------------------------------------------
+UTILITATS
+
+ES FA SERVIR MOLTISSIM EN APLICACIONS ANDROID I PAGINES WEB. POT FER EL BACKNED gracies a funcionalitats noves com l'asincronia i el FRONT amb extensions com KOTLIN-JS
+TAMBE ES FA SERVIR EN DATA SCIENCE, PERQUE COM EL PYTHON, DONA POCS ERRORS, ES CONCIS I SENZILL DE LLEGIR I COMPTA AMB LLIBRERIES DE ESTADISTICA, PROCESAMENT DE DADES, PLOTTING, DEEP LEARNING
+I TOTES LES LLIBRERIES JA EXISTENTS DE JAVA
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+ESPECIALITATS KOTLIN
+
+AQUEST LLENGUATGE ES UNA MILLORA I ENSUCRAMENT SINTACTIC DE JAVA QUE TE UNA GRAN EXPRESSIVITAT I ES SUPER CONCIS. TOTES LES LLIBRERIES DE JAVA ESTAN A KOTLIN APART DE LES SEVES PROPIES I ELS CODIS SON CONVERTIBLES FACILMENT D'UN LLENGAATGE AL ALTRE. PERO NO NOMÉS AIXO:
+
+CONTA AMB CRIDES ASINCRONES SUSPEND que permeten que l'execució d'altres threads segueixin sense bloquejarse (UTIL PER BASES DE DADES I XARXES)
+COMPTA AMB SAFE NULLS, 4 ESTRATEGIES PER EVITAR LES ODIOSES NULL POINTER EXCEPCTION DE JAVA I MOLTES ALTRES.
+
+ES MULTIPARADIGMA (OOP, IMPERATIU, FUNCIONAL)
+
+------------------------------------------------------------------------------------------------------------------------------------------
+EXEMPLE OOP
+
+Aqui podeu veure exemples de declaracions de variables i switches. Només d'entrada ja es molt més curt a kotlin, sino més facil de llegir. el switch en kotlin es el WHEN. En aquest codi s'assignen els valors de xresult i yresult usant el switch on cada condició retorna un valor en concret, ja que esta en una assignació, si no posariem el codi en concret que volem que executi.
+es poden comprimir els casos amb la "COMA" o amb els rangs que ofereix el llenguatge
+
+------------------------------------------------------------------------------------------------------------------------------------------
+TIPATGE
+
+PER DECLARAR VARIABLES PODEM USAR VAL QUE SERA DE NOMES LECTURA (COM CONST) O VAR, QUE SERA UNA VARIABLE NORMAL.
+EL TIPATGE DE KOTLIN ES FORT, JA QUE NO PERMET CONVERSIONS ENTRE TIPUS AUTOMATIQUES TAL COM JAVASCRIPT I ES ESTATIC PERQUÈ EN TEMPS DE COMPILACIÓ ES NECESSARI SABER ELS TIPUS
+
+UN DELS PUNTS FORTS DE KOTLIN ES LA GESTIO DE LA NULABILITAT PER EVITAR EXCEPCIONS I ERRORS.
+RES POT TENIR VALOR NUL SINO HO EXPLICITEM A NO SER QUE LI AFEGIM UN INTERROGANT, STRING? , INT?
+
+TENIM EL OPERADOR ELVIS (?:) QUE ES UN CONDICIONAL, SI EL VALOR ES NUL SE LI DONA UN PER DEFECTE, SI NO ES NUL S'USA AQUELL
+TAMBE HI HA EL OPERADOR ELVIS QUE HA PERDUT UN ULL (?.) QUE EN ASSIGNACIONS O FUNCIONS PROPAGA EL NULL SI EL VALOR ERA NUL.
+FINALMENT HI HA LA ASSERCIO NOT NULL (!!) QUE INVOCA ELS NULLPOINTEREXCEPTIONS, ES PODEN FER SERVIR DE MANERA INTELIGENT PERO TAMPOC S'ACONSELLEN
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+EXEMPLES CODI
+
+-MAPS
+
+-OOP: AUTOMATICAMENT GENERA HASHCODE, EQUALS, TOSTRING, COPY(), cossa que java no fa
+
+-SIMPLIFICA ELS TESTS DE JAVA UNA BOGERIA
+
+------------------------------------------------------------------------------------------------------------------------------------------
+COMPARACIO JAVA
+
+En quant a la comparacio amb java es evident, es força superior ja que incorpora tot lo que te java de manera ensucrada. Aqui podem veure el exemple de la classe lllibre
+qualsevol codi en Kotlin serà molt mes curt i entendible trivialment sense afegir overhead de rendiment, ja que va ser programat per suplantar aquest llenguatge. Els 2 son iguals en molts
+aspectes com la compilació a bytecode, la possible execució a JVM,
+
+------------------------------------------------------------------------------------------------------------------------------------------
+COMPARACIO PYTHON
+
+En sensillesa i facilitat d'us pels novats guanyaria python, aquest es de tipatge dinamic mentre kotlin es estatic. Els dos llenguatges tenen una gran quantitat de llibreries i els dos son multiplataforma.  Kotlin es superior a Python però en el ambit de seguretat, errors i excepcions degut al seu tipatge i control de nuls. En Desenvolupament web es millor kotlin ja que python
+no pot implementar front-end per si mateix.
+-----------------------------------------------------------------------------------------------------------------------------------------
+OPINIO PERSONAL
+
+En definitiva opino que kotlin es un llenguatge força util i interesant, despres de ferlo servir una mica puc assegurar que es molt millor que java en quant a expressivitat i m'agrada
+perque no em restrigeix a un tipus de paradigma en concret, al igual que c++ o python. Lo millor però es que no nomes es bonic i sembla util pero sino que a la pràctica ho és i cada cop sembla
+que més i més persones estan decidint ferlo servir en el seu entorn laboral i aplicacions i pagines web personals. Definitivament ho recomanaria i li posare un 9/10. No li posaré 10 perque el sistema de nuls es una mica enreversat de comprendre i només llenguatges importants com prolog mereixen un 10/10.
+
+
+
+
+
+
+
+
