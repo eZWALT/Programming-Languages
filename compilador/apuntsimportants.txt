@@ -11,4 +11,15 @@ TOTES LES VARIABLES SON INTS,LOCALS SENSE I/0
 -les funcions poden tenir 0 a n parametres COMENÇEN PER MAJUSCULA
 -return de les funcions es l'avaluacio d'una expressió || POT NO RETORNAR RES!!!
 
-(
+
+
+FER DICCIONARI TAULA SIMBOLS  i DECLARACIONS DE FUNCIONS                        /// ts =  [{}]      NOMES GUARDSAR VARIABLES LOCALS I PARAMETRES
+//per les funcions cal guardar la taula de funcions (tf)
+//per fer variables globals es pot fer una taula separada o la primera de totes /// tf = {id: llista parametres , bloc }                        ON BLOC = l[3]
+
+__init__(self, ts = {})
+    self.ts = {}
+
+en el root    self.ts['x'] = 8
+
+    return self.ts
