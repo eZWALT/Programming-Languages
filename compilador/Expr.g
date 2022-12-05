@@ -7,16 +7,15 @@ expr :  '(' expr ')'                        #parentheses
     | expr (SUM | SUB) expr                 #binary
     | expr (TERNARY) expr                   #binary
     | expr (LESSEQ | LESS | GREATEREQ | GREATER) expr    #binary
-    | expr (NOTEQ | EQ) expr
-    | expr (AND) expr 
-    | expr (OR) expr
-    | NUM
+    | expr (NOTEQ | EQ) expr                #binary
+    | expr (AND) expr                       #binary
+    | expr (OR) expr                        #binary
+    | NUM                                   #unary
     ;
 
-stmt: 
-    assignment
-    | loop
+stmt: loop
     | conditional
+//    | assignment
     ;
 
 loop: 
@@ -29,6 +28,8 @@ conditional:
     'if' '(' expr ')' '{' stmt '}'
     | 'if' '(' expr ')' '{' stmt '}' 'else' '{' stmt '}'
     ;
+
+//assignment: ID '<-' expr;
  
 //AMBDOS DO WHILE I EL FOR(K) SON BUCLES QUE HE AFEGIT PER FER EL LLENGUATGE MES COMPLERT :) 
 
