@@ -1,36 +1,29 @@
 grammar Expr;
 
 root : expr EOF ;
-expr :  '(' expr ')'                        #parentheses
-    | <assoc=right> expr EXP expr           #binary
-    | expr (DIV | PROD | MOD) expr          #binary
-    | expr (SUM | SUB) expr                 #binary
-    | expr (TERNARY) expr                   #binary
-    | expr (LESSEQ | LESS | GREATEREQ | GREATER) expr    #binary
-    | expr (NOTEQ | EQ) expr                #binary
-    | expr (AND) expr                       #binary
-    | expr (OR) expr                        #binary
-    | NUM                                   #unary
+expr :  '(' expr ')'                     #unary                    
+    | <assoc=right> expr EXP expr        #arithmetic
+    | expr (DIV | PROD | MOD) expr       #arithmetic
+    | expr (SUM | SUB) expr              #arithmetic
+    | expr (TERNARY) expr                #logic
+    | expr (LESSEQ | LESS | GREATEREQ | GREATER) expr   #logic
+    | expr (NOTEQ | EQ) expr                            #logic        
+    | expr (AND) expr                                   #logic
+    | expr (OR) expr                                    #logic
+    | expr IMPLIES expr                                 #logic
+    | NOT expr                                          #logic 
+    | NUM                                               #unary 
     ;
 
-stmt: loop
-    | conditional
-//    | assignment
+stmt:     
+    'if'  expr  '{' stmt '}'                          #conditional
+    | 'if'  expr  '{' stmt '}' 'else' '{' stmt '}'    #conditional
+    |'while' expr '{' stmt '}'                        #loop
+    | 'do' '{' stmt '}' 'while' expr                  #loop
+    | 'for' '(' NUM ')' '{' stmt '}'                  #loop
+    | ID '<-' expr                                    #assignment
     ;
 
-loop: 
-    'while' expr '{' stmt '}'
-    | 'do' '{' stmt '}' 'while' expr 
-    | 'for' '(' NUM ')' '{' stmt '}'                   
-    ;
-
-conditional:
-    'if' '(' expr ')' '{' stmt '}'
-    | 'if' '(' expr ')' '{' stmt '}' 'else' '{' stmt '}'
-    ;
-
-//assignment: ID '<-' expr;
- 
 //AMBDOS DO WHILE I EL FOR(K) SON BUCLES QUE HE AFEGIT PER FER EL LLENGUATGE MES COMPLERT :) 
 
 
@@ -38,13 +31,13 @@ conditional:
 
 //call: MAJUS (MAJUS | MINUS)*  ;
 
+IMPLIES: '-->' | ':-';
 SUM : '+';
 SUB : '-';
 PROD: '*';
 DIV:  '/';
 EXP:  '^';
 MOD:  '%';
-TERNARY: '<=>';
 NOTEQ: '!=';
 LESSEQ: '<=';
 GREATEREQ: '>=';
@@ -53,17 +46,15 @@ GREATER: '>';
 EQ: '=';
 AND: '&&';  
 OR: '||';
-
-//PITO: ':-'; para el walter del futuro :- sobra tiempo
-
+NOT: '!';
 
 
 
 
+ID: MAJUS (MAJUS | MINUS | NUM)*;
 COMMENT: '#' (MAJUS | MINUS)* '\n';
 WS : [ \n]+ -> skip ;
 NUM : [0-9]+ ;
 MAJUS: [A-Z];
 MINUS: [a-z];
-
 

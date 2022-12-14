@@ -14,13 +14,8 @@ class ExprVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExprParser#parentheses.
-    def visitParentheses(self, ctx:ExprParser.ParenthesesContext):
-        return self.visitChildren(ctx)
-
-
-    # Visit a parse tree produced by ExprParser#binary.
-    def visitBinary(self, ctx:ExprParser.BinaryContext):
+    # Visit a parse tree produced by ExprParser#arithmetic.
+    def visitArithmetic(self, ctx:ExprParser.ArithmeticContext):
         return self.visitChildren(ctx)
 
 
@@ -29,8 +24,13 @@ class ExprVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExprParser#stmt.
-    def visitStmt(self, ctx:ExprParser.StmtContext):
+    # Visit a parse tree produced by ExprParser#logic.
+    def visitLogic(self, ctx:ExprParser.LogicContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExprParser#conditional.
+    def visitConditional(self, ctx:ExprParser.ConditionalContext):
         return self.visitChildren(ctx)
 
 
@@ -39,8 +39,8 @@ class ExprVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
-    # Visit a parse tree produced by ExprParser#conditional.
-    def visitConditional(self, ctx:ExprParser.ConditionalContext):
+    # Visit a parse tree produced by ExprParser#assignment.
+    def visitAssignment(self, ctx:ExprParser.AssignmentContext):
         return self.visitChildren(ctx)
 
 
