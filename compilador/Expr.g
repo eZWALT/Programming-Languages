@@ -1,35 +1,32 @@
 grammar Expr;
 
-root : expr EOF ;
-expr :  '(' expr ')'                     #unary                    
+//OJO, CUANDO FUNCIONEN BIEN LAS FUNCIONES ESTO TENDRA QUE SER ROOT: DECLARATION* STMT? EOF
+root : stmt* EOF ;
+expr :  '(' expr ')'                     #unary
+    | ID                                 #variable
     | <assoc=right> expr EXP expr        #arithmetic
     | expr (DIV | PROD | MOD) expr       #arithmetic
     | expr (SUM | SUB) expr              #arithmetic
-    | expr (TERNARY) expr                #logic
     | expr (LESSEQ | LESS | GREATEREQ | GREATER) expr   #logic
-    | expr (NOTEQ | EQ) expr                            #logic        
-    | expr (AND) expr                                   #logic
-    | expr (OR) expr                                    #logic
-    | expr IMPLIES expr                                 #logic
-    | NOT expr                                          #logic 
+    | expr (NOTEQ | EQ) expr                            #logic
+    | NOT expr                                          #logic         
+    | expr (AND | OR | IMPLIES) expr                    #logic
     | NUM                                               #unary 
+    | ID expr*                                          #call
     ;
+
+block: '{' stmt+ '}';
 
 stmt:     
-    'if'  expr  '{' stmt '}'                          #conditional
-    | 'if'  expr  '{' stmt '}' 'else' '{' stmt '}'    #conditional
-    |'while' expr '{' stmt '}'                        #loop
-    | 'do' '{' stmt '}' 'while' expr                  #loop
-    | 'for' '(' NUM ')' '{' stmt '}'                  #loop
-    | ID '<-' expr                                    #assignment
+     ID '<-' expr                                    #assignment
+    |'if'  expr  block                              #conditional
+    | 'if'  expr  block 'else' block                #conditional
+    | 'if'  expr  block 'else if' expr block        #conditional
+    | 'if'  expr  block 'else if' expr block  'else' block  #conditional
+    |'while' expr block                        #loop
+    | 'do' block 'while' expr                  #loop
     ;
 
-//AMBDOS DO WHILE I EL FOR(K) SON BUCLES QUE HE AFEGIT PER FER EL LLENGUATGE MES COMPLERT :) 
-
-
-
-
-//call: MAJUS (MAJUS | MINUS)*  ;
 
 IMPLIES: '-->' | ':-';
 SUM : '+';
@@ -49,12 +46,10 @@ OR: '||';
 NOT: '!';
 
 
-
-
 ID: MAJUS (MAJUS | MINUS | NUM)*;
+MAJUS: [A-Z];
+MINUS: [a-z];
 COMMENT: '#' (MAJUS | MINUS)* '\n';
 WS : [ \n]+ -> skip ;
 NUM : [0-9]+ ;
-MAJUS: [A-Z];
-MINUS: [a-z];
 
