@@ -7,7 +7,7 @@ else:
 
     FunctionTable = []  #Llista de funcions, que cadascuna està identificada per un nom i els noms de les seves variables internes (tipus de retorn es sempre int)
 
-    SymbolTable = [{}]  #Llista de diccionaris, un diccionari per scope, l'usarem com una pila
+    SymbolTable = []  #Llista de diccionaris, un diccionari per scope, l'usarem com una pila
     #SymbolTable.append({}) crea un nou scope de variables, si fem un SymbolTable.pop() treu aquest ambit de visibilitat
     ArithmeticDicc = {'+': lambda x,y: x+y, '-': lambda a,b: a-b, '*': lambda x,y: x*y, '/': lambda x,y: x/y, '%': lambda x,y: x%y, '^': lambda x,y: x**y}
     LogicDicc = {'<': lambda a,b: a < b, '<=': lambda a,b: a < b, '>': lambda x,y: x > y, '>=': lambda a,b: a >= b, '!=': lambda a,b: a != b, "=": lambda x,y: x == y , "&&": lambda a,b: a and b, '||': lambda a,b: a or b, ':-': lambda a,b: not(a) or b}
@@ -48,8 +48,23 @@ class EvalVisitor(ExprVisitor):
         l = list(ctx.getChildren())
         for i in l: 
             value = self.visit(i)
-            if value != None:   return value                                                    #Pel Tractament de funcions, s'han de visitar tots els statements
+            if value != None:   
+                return value                                                    #Pel Tractament de funcions, s'han de visitar tots els statements
     
+    def visitDeclaration(self, ctx: ExprParser.DeclarationContext):
+        l = list(ctx.getChildren())
+        function_ID = l[0].getText()        #tots els parametres venen a continuacio
+        block 
+        parameters = []
+        for i in l[1:]:
+            if i == l[-1]: 
+                block = i
+            else:
+                parameters.append(i)
+
+        FunctionTable.append((function_ID, parameters,block))
+        return None
+        
     #esta a mitges!!!! cal que la taula de funcions estigui operativa
     def visitCall(self,ctx):
         l = list(ctx.getChildren())

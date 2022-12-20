@@ -15,6 +15,7 @@ expr :  '(' expr ')'                     #unary
     | ID expr*                                          #call
     ;
 
+declaration: FUNCTIONID ID block;
 block: '{' stmt+ '}';
 
 stmt:     
@@ -46,7 +47,8 @@ OR: '||';
 NOT: '!';
 
 
-ID: MAJUS (MAJUS | MINUS | NUM)*;
+ID: MINUS (MAJUS | MINUS | NUM)*;
+FUNCTIONID: MAJUS (MAJUS | MINUS | NUM)*;
 MAJUS: [A-Z];
 MINUS: [a-z];
 COMMENT: '#' (MAJUS | MINUS)* '\n';
