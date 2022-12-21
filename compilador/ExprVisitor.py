@@ -19,6 +19,11 @@ class ExprVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by ExprParser#values.
+    def visitValues(self, ctx:ExprParser.ValuesContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by ExprParser#variable.
     def visitVariable(self, ctx:ExprParser.VariableContext):
         return self.visitChildren(ctx)
@@ -46,6 +51,11 @@ class ExprVisitor(ParseTreeVisitor):
 
     # Visit a parse tree produced by ExprParser#block.
     def visitBlock(self, ctx:ExprParser.BlockContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by ExprParser#expression.
+    def visitExpression(self, ctx:ExprParser.ExpressionContext):
         return self.visitChildren(ctx)
 
 

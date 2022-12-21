@@ -5,7 +5,7 @@ from EvalVisitor import EvalVisitor
 
 visitor = EvalVisitor()
 while True:
-    input_stream = InputStream(input('? '))
+    input_stream = StdinStream()
     lexer = ExprLexer(input_stream)
     token_stream = CommonTokenStream(lexer)
     parser = ExprParser(token_stream)

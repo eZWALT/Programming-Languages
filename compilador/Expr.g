@@ -1,7 +1,8 @@
 grammar Expr;
 
 //OJO, CUANDO FUNCIONEN BIEN LAS FUNCIONES ESTO TENDRA QUE SER ROOT: DECLARATION* STMT? EOF
-root : stmt* EOF ;
+root :  declaration* expr* EOF ;
+
 expr :  '(' expr ')'                     #unary
     | ID                                 #variable
     | <assoc=right> expr EXP expr        #arithmetic
@@ -12,14 +13,17 @@ expr :  '(' expr ')'                     #unary
     | NOT expr                                          #logic         
     | expr (AND | OR | IMPLIES) expr                    #logic
     | NUM                                               #unary 
-    | ID expr*                                          #call
-    ;
+    | FUNCTIONID expr*                                          #call
+    | 'true'                                            #values
+    | 'false'                                           #values 
+    ;                 
 
-declaration: FUNCTIONID ID block;
+declaration: FUNCTIONID ID* block;
 block: '{' stmt+ '}';
 
-stmt:     
-     ID '<-' expr                                    #assignment
+stmt:  
+    expr                                            #expression
+    |ID '<-' expr                                    #assignment
     |'if'  expr  block                              #conditional
     | 'if'  expr  block 'else' block                #conditional
     | 'if'  expr  block 'else if' expr block        #conditional
@@ -27,7 +31,6 @@ stmt:
     |'while' expr block                        #loop
     | 'do' block 'while' expr                  #loop
     ;
-
 
 IMPLIES: '-->' | ':-';
 SUM : '+';
@@ -51,7 +54,7 @@ ID: MINUS (MAJUS | MINUS | NUM)*;
 FUNCTIONID: MAJUS (MAJUS | MINUS | NUM)*;
 MAJUS: [A-Z];
 MINUS: [a-z];
-COMMENT: '#' (MAJUS | MINUS)* '\n';
+COMMENT: '#' (MAJUS | MINUS | NUM)*;
 WS : [ \n]+ -> skip ;
 NUM : [0-9]+ ;
 
