@@ -1,9 +1,9 @@
 grammar Expr;
 
-//OJO, CUANDO FUNCIONEN BIEN LAS FUNCIONES ESTO TENDRA QUE SER ROOT: DECLARATION* STMT? EOF
-root :  declaration* expr* EOF ;
+root : declaration* expr* EOF ;
 
 expr :  '(' expr ')'                     #unary
+    | '-' expr                             #unary
     | ID                                 #variable
     | <assoc=right> expr EXP expr        #arithmetic
     | expr (DIV | PROD | MOD) expr       #arithmetic
@@ -12,8 +12,8 @@ expr :  '(' expr ')'                     #unary
     | expr (NOTEQ | EQ) expr                            #logic
     | NOT expr                                          #logic         
     | expr (AND | OR | IMPLIES) expr                    #logic
-    | NUM                                               #unary 
-    | FUNCTIONID expr*                                          #call
+    | NUM                                               #unary                                          
+    | FUNCTIONID expr*                                  #call
     | 'true'                                            #values
     | 'false'                                           #values 
     ;                 
@@ -30,6 +30,8 @@ stmt:
     | 'if'  expr  block 'else if' expr block  'else' block  #conditional
     |'while' expr block                        #loop
     | 'do' block 'while' expr                  #loop
+    | 'for' '(' ID '<-' expr 'to'  expr ')' block  #loop 
+    | 'for' '(' ID '<-' expr 'downto'  expr ')' block #loop
     ;
 
 IMPLIES: '-->' | ':-';
@@ -54,7 +56,7 @@ ID: MINUS (MAJUS | MINUS | NUM)*;
 FUNCTIONID: MAJUS (MAJUS | MINUS | NUM)*;
 MAJUS: [A-Z];
 MINUS: [a-z];
-COMMENT: '#' (MAJUS | MINUS | NUM)*;
+COMMENT: '#' (MAJUS | MINUS | NUM | [ \t])* WS* -> skip;
 WS : [ \n]+ -> skip ;
 NUM : [0-9]+ ;
 

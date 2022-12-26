@@ -7,7 +7,7 @@ else:
 
     FunctionTable = {}  #Llista de funcions, que cadascuna està identificada per un nom i els noms de les seves variables internes (tipus de retorn es sempre int)
 
-    SymbolTable = []  #Llista de diccionaris, un diccionari per scope, l'usarem com una pila
+    SymbolTable = [{}]  #Llista de diccionaris, un diccionari per scope, l'usarem com una pila
     #SymbolTable.append({}) crea un nou scope de variables, si fem un SymbolTable.pop() treu aquest ambit de visibilitat
     ArithmeticDicc = {'+': lambda x,y: x+y, '-': lambda a,b: a-b, '*': lambda x,y: x*y, '/': lambda x,y: x/y, '%': lambda x,y: x%y, '^': lambda x,y: x**y}
     LogicDicc = {'<': lambda a,b: a < b, '<=': lambda a,b: a < b, '>': lambda x,y: x > y, '>=': lambda a,b: a >= b, '!=': lambda a,b: a != b, "=": lambda x,y: x == y , "&&": lambda a,b: a and b, '||': lambda a,b: a or b, ':-': lambda a,b: not(a) or b, '-->': lambda a,b: not(a) or b}
@@ -21,6 +21,8 @@ class EvalVisitor(ExprVisitor):
     def visitArithmetic(self, ctx):
         l = list(ctx.getChildren())
         operator = l[1].getText() 
+        if operator == "/":
+            assert (int(l[2].getText()) != 0), "Execution Error: Unable to divide by 0"
         return (ArithmeticDicc[operator] ((int(self.visit(l[0])) ) ,(int(self.visit(l[2])))))   #nomes hi han operacions aritmetiques binaries
 
     def visitLogic(self,ctx): 
@@ -35,26 +37,28 @@ class EvalVisitor(ExprVisitor):
     #evaluacio de numeros o bé expresions parentitzades
     def visitUnary(self,ctx):
         l = list(ctx.getChildren())
-        if len(l) != 1:
+        if l[0].getText() == '(':
             return int(self.visit(l[1]))                                                         #cas 1: es tracta d'una expressio parentitzada
+        elif l[0].getText() == '-':
+            return  - int(self.visit(l[1]))                                                      #cas 2: es tracta d'una expressio negada
         else:
-            return int(l[0].getText())                                                           #cas 2: es tracta d'un literal numeric 
+            return int(l[0].getText())                                                           #cas 3: es tracta d'un literal numeric 
 
     #evaluacio de true i false
-    def visitValues(self, ctx: ExprParser.ValuesContext):
-        l = list(ctx.getChildren())
+    def visitValues(self, ctx: ExprParser.ValuesContext):                                        #Aquesta funció només serveix per evaluar
+        l = list(ctx.getChildren())                                                              #Els booleans true i false a 1 i 0 respectivament
         if l[0].getText() == "true":
             return 1
         else: 
             return 0
 
-    def visitVariable(self,ctx):
+    def visitVariable(self,ctx):                                                                #Serveix per evaluar variables del ambit de visibilitat local                
         l = list(ctx.getChildren())
         ID = l[0].getText()
         assert (ID in SymbolTable[-1]), "Execution Error: Variable " + ID + " may no exist or may not be used in this scope"
-        return int(SymbolTable[-1][ID])
+        return int(SymbolTable[-1][ID])     
 
-    def visitCall(self,ctx):
+    def visitCall(self,ctx):                                                                    # Evaluació de crides a funcions                                               
         l = list(ctx.getChildren())
         ID = l[0].getText()
 
@@ -62,9 +66,9 @@ class EvalVisitor(ExprVisitor):
         SM = {}
         #A continuacio testejem possibles errores en l'execucio d'una funcio
 
-        assert(ID in FunctionTable), "This function hasn't been declared yet"   
+        assert(ID in FunctionTable), "Execution Error: This function hasn't been declared yet"   
         (block,parameters) = FunctionTable[ID]
-        assert (len(l[1:]) == len(parameters)), "Not enough parameters provided in function call: " + ID + " expected: " + len(l[1:]) + " , given: " + len(parameters)
+        assert (len(l[1:]) == len(parameters)), "Execution Error: Not enough parameters provided in function call: " + ID + " expected: " + len(l[1:]) + " , given: " + len(parameters)
 
         #Asignem en el ambit local totes les variables amb els noms corresponents als parametres 
         for index in range(0,len(parameters)):                          #tots els fills, a excepcio del primer són els multiplearametres
@@ -88,12 +92,15 @@ class EvalVisitor(ExprVisitor):
     def visitDeclaration(self, ctx: ExprParser.DeclarationContext):
         l = list(ctx.getChildren())
         function_ID = l[0].getText()        #tots els parametres venen a continuacio
+        assert (not function_ID in FunctionTable), "Declaration Error: A function with this name already exists!"
+
         block = None
         parameters = []
         for i in l[1:]:
             if i == l[-1]: 
                 block = i
             else:
+                assert(not i in parameters), "Declaration Erorr: This function already has a parameter named: " + i
                 parameters.append(i)
 
         FunctionTable[function_ID] = (block,parameters) #nova entrada a la taula de funcions
@@ -151,6 +158,34 @@ class EvalVisitor(ExprVisitor):
                 value = self.visit(l[1])
                 if value != None: break
                 condition = self.visit(l[3])
+
+        elif l[0].getText() == "for": 
+            ID = l[2].getText()
+            begin = int(self.visit(l[4]))
+            end = int(self.visit(l[6]))
+
+            #Bucles for, en dos gustos: to i downto (for ascendent i descendent), sempre iteren amb step 1
+            if begin != end:
+                if l[5].getText() == "to":
+                    assert (begin < end), "Coding Error: for can't iterate throught a negative range of numbers???)"
+                    SymbolTable[-1][ID] = begin
+
+                    while SymbolTable[-1][ID] < end:
+                        value = self.visit(l[8])
+                        if value != None: break
+                        SymbolTable[-1][ID] += 1
+
+                else:
+                    assert (begin > end), "Coding Error: for can't iterate throught a negative range of numbers???"
+                    SymbolTable[-1][ID] = begin
+
+                    while SymbolTable[-1][ID] > end:
+                        value = self.visit(l[8])
+                        if value != None: break
+                        SymbolTable[-1][ID] -= 1
+                SymbolTable[-1].pop(ID)
+            
+            
 
         return value
 

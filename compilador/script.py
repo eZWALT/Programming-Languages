@@ -11,4 +11,3 @@ while True:
     parser = ExprParser(token_stream)
     tree = parser.root()
     visitor.visit(tree)
-
