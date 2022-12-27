@@ -154,10 +154,43 @@ També m'he ajudat de la famosa inteligencia artificial, `chatgpt` per aprendre 
 
 Ara explicaré en detall els petits afegitons que he fet a la pràctica:
 
+### operadors llogics:
+
+-`:- / -->`: Aquest operador esta implementat com `lambda a,b: not(a) or b ` el qual es la definicio alternativa de la implicació llogica. Probablement, no serà massa util per la majoria de usuaris, però ho he escrit pensant en programadors llogics. La taula de la veritat que produeix es la de la implicacio llogica. Apela a la nostalgia dels fanàtics de prolog :).
+
+-`&&`: AND llogica, la implementacio en python es trivial, però es extremadament útil per formar condicions complexes a bucles i condicionals , en conjunt amb les altres operacions llogiques.
+
+-`||`: OR llogica, la implementacio en python es trivial, però es extremadament útil per formar condicions complexes a bucles i condicionals , en conjunt amb les altres operacions llogiques.
+
+-`!`: NOT llogica, la implementacio en python es trivial, però es extremadament útil per formar condicions complexes a bucles i condicionals , en conjunt amb les altres operacions llogiques.
+
+### Macros
+
+-`true`: Macro true pel valor enter 1, per millorar la llegibilitat del codi i la reusabilitat.
+
+-`false`: Macro false pel valor enter 0, per millorar la llegibilitat del codi i la reusabilitat.
+
+### Bucles adicionals
+
+-`do{} while()`: bucle alternatiu, afegeix flexibilitat al codi, per no forçar a només usar while's (Personalment els utilitzo força).
+
+-`for(ID <- expr to expr)`: for ascendent amb step 1, crea una variable local amb nom ID. Vaig considerar que a pesar de que no es demanava, era molt util per evitar codi inecessàri. Apela a la nostalgia dels fanàtics del Pascal.
+
+-`for(ID <- expr downto expr)`: for descendent amb step 1, crea una variable local amb nom ID. Vaig considerar que a pesar de que no es demanava, era molt util per evitar codi inecessàri.Apela a la nostalgia dels fanàtics del Pascal.
+
+### Condicionals adicionals
+En aquest apartat lo únic que he afegit es la possibilitat de afegir un únic else-if , tant en els if's individuals i els if-else. Per millorar el codi lleugerament.
+
+-`if cond {} else if cond {}`
+
+-`if cond {} else if cond {} else {}`
+
+
 
 ## Agraiments i Desagraiments
 Aquest treball no podria haber sigut possible sense l'ajut de en Gerard Escudero Bakx, del qual vaig aprendre que la gracia de tot,de fet, resideix en les funcions d'ordre superior.
 També he d'agrair a l'Alex Herrero Bravo i en Pol Roca (Son del nostre subgrup de lab) per haber-me ajudat amb certs bugs i a entendre com usar flask i jinja.
 
-Aquest treball podria haber sigut acabat molt més ràpid i amb molta més qualitat si no hagues sigut per culpa de Manjaro que rebenta amb una facilitat increible (Arch linux no es molt segur).
+Aquest treball podria haber sigut acabat molt més ràpid i amb molta més qualitat si no hagues sigut per culpa de Manjaro que rebenta amb una facilitat increible (Gracies comunitat de Arch Linux per res :D )
+
 També espero que en jordi petit arregli aquest exercici https://jutge.org/problems/P87974_ca , ja que si el teu nom es Luca, et diu `hola maca!`
