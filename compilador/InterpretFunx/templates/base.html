@@ -1,0 +1,119 @@
+<html>
+  <head>
+    <title> Funx </title>
+    <link rel="shortcut icon" href="https://www.favicon.cc/logo3d/231757.png">
+    <style>
+      body {
+        background-color: #2d2d2d;
+        color: #b30000;
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+      }
+      input[type="text"] {
+        width: 50%;
+        height: 40px;
+        font-size: 24px;
+        font-family:'Courier New', Courier, monospace;
+        color: #b30000;
+        background-color: #2d2d2d;
+        border: 2px solid #b30000;
+      }
+      input[type="submit"] {
+        width: 50%;
+        height: 40px;
+        font-size: 24px;
+        font-family:'Courier New', Courier, monospace;
+        color: black;
+        background-color: #b30000;
+        border: 2px solid black;
+      }
+      h1 {
+        text-align: center;
+        font-size: 80px;
+        font-family:'Courier New', Courier, monospace;
+      }
+      h2 {
+        text-align: center;
+        font-size: 24px;
+        font-family:'Courier New', Courier, monospace;
+      }
+      .results {
+        margin-top: 20px;
+        font-size: 24px;
+        font-family:'Courier New', Courier, monospace;
+        color: #ff6666; /* Soft red color for the results text */
+      }
+      .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .form-container > * {
+        width: 50%;
+      }
+      #results {
+       float: left;
+       width: 45%;
+       text-align: center;
+       font-size: 18px;
+      }
+      #results h2{
+        font-size: 36px;
+      }
+      #functions h2{
+        font-size: 36px;
+      }
+      #functions {
+        float: right;
+        width: 45%;
+        text-align: center;
+        font-size: 18px;
+      }
+      ul {
+        display: table;
+        margin: 0 auto;
+      } 
+      #function-list {
+        color: #f0f0f0; /* Soft red color for the functions text */
+      }
+      #result-list {
+        color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="terminal">
+      <h1>Funx 1.0</h1>
+      <h2>by Walter J.T.V</h2>
+      <form method="post">
+        <label for="input_text">Enter your expression:</label><br>
+        <textarea id="input_text" name="input_text" style="height: 240px; width: 800px; font-size: 24px; background-color: #a9a9a9;"></textarea><br>
+        <input type="submit" value="Execute">
+      </form>
+    </div>
+    <div id="results">
+      <h2>Last Results</h2>
+      <ul id="result-list">
+        {% for result in results%}
+        <li>{{result}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div id="functions">
+      <h2>Last Declared Functions</h2>
+      <ul id="function-list">
+        {% for function in functions %} 
+        <li>{{function}}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
+
+
+
+
