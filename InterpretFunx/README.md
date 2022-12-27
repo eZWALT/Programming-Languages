@@ -150,4 +150,14 @@ Primer de tot m'agradaria recalcar que he fet alguns canvis respecte al enunciat
 
 A més a més he afegit diversos bucles com els 2 tipus de fors i el do-while, a més a més de condicionals amb un posible else-if per fer un xic més flexible el programa. Finalment hi han força més operadors dels demanats, però vaig pensar que farien que el llenguatge fos força més complert (Com els operadors llogics).
 
-També m'he ajudat de la famosa inteligencia artificial, `chatgpt` per aprendre i generar la part de flask (La part html l'he desenvolupat de manera un xic més manual) i finalment he comprovat exhaustivament que efectivament el funcionament de la web fos l'esperat.
+També m'he ajudat de la famosa inteligencia artificial, `chatgpt` per aprendre i generar la part de flask (La part html l'he desenvolupat de manera un xic més manual) i finalment he comprovat exhaustivament que efectivament el funcionament de la web fos l'esperat (a part de desenes de modificacions i re-estructuracions manuals, pero per començar em va ser util)
+
+Ara explicaré en detall els petits afegitons que he fet a la pràctica:
+
+
+## Agraiments i Desagraiments
+Aquest treball no podria haber sigut possible sense l'ajut de en Gerard Escudero Bakx, del qual vaig aprendre que la gracia de tot,de fet, resideix en les funcions d'ordre superior.
+També he d'agrair a l'Alex Herrero Bravo i en Pol Roca (Son del nostre subgrup de lab) per haber-me ajudat amb certs bugs i a entendre com usar flask i jinja.
+
+Aquest treball podria haber sigut acabat molt més ràpid i amb molta més qualitat si no hagues sigut per culpa de Manjaro que rebenta amb una facilitat increible (Arch linux no es molt segur).
+També espero que en jordi petit arregli aquest exercici https://jutge.org/problems/P87974_ca , ja que si el teu nom es Luca, et diu `hola maca!`
