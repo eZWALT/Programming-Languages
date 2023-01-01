@@ -13,12 +13,12 @@ expr :  '(' expr ')'                     #unary
     | NOT expr                                          #logic         
     | expr (AND | OR | IMPLIES) expr                    #logic
     | NUM                                               #unary                                          
-    | FUNCTIONID expr*                                  #call
+    | FUNCTIONID (FUNCTIONID | expr)*                   #call
     | 'true'                                            #values
     | 'false'                                           #values 
     ;                 
 
-declaration: FUNCTIONID ID* block;
+declaration: FUNCTIONID (ID | FUNCTIONID)* block;
 block: '{' stmt+ '}';
 
 stmt:  

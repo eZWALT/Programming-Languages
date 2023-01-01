@@ -22,24 +22,31 @@ def base():
     if request.method == 'POST':
 
         input_text = request.form['input_text']
-        input_stream = InputStream(input_text)
-        lexer = ExprLexer(input_stream)
-        token_stream = CommonTokenStream(lexer)
-        parser = ExprParser(token_stream)
-        tree = parser.root()
-        visitor = EvalVisitor()
-        resultat = visitor.visit(tree)
+        string = ""
+        try:
+            input_stream = InputStream(input_text)
+            lexer = ExprLexer(input_stream)
+            token_stream = CommonTokenStream(lexer)
+            parser = ExprParser(token_stream)
+            tree = parser.root()
+            visitor = EvalVisitor()
+            resultat = visitor.visit(tree)
 
-        if isinstance(resultat,int):    #es tracta d'una evaluació amb resultat
+            if isinstance(resultat,int):    #es tracta d'una evaluació amb resultat
             #limitem el maxim de resultats anteriors a 5, si n'hi han de nous es subistuiran amb politica FIFO
-            string = "IN: " + input_text + "\t" + "OUT: " + str(resultat)
+               string = "IN: " + input_text + " /// " + "OUT: " + str(resultat)
+               resultats.append(string)
+               if len(resultats) > 8: resultats.pop(0)
+
+            elif isinstance(resultat,list): #es tracta d'una funció per guardar 
+            #hem limitat el maxim de funcions a 5, si s'entren de noves es fa FIFO
+               functions.append(getFunx(resultat))
+               if len(functions) > 8: functions.pop(0)
+
+        except Exception as ffs:
+            string = "IN: " + "..." + " /// " + "OUT: " + str(ffs)
             resultats.append(string)
             if len(resultats) > 8: resultats.pop(0)
-
-        elif isinstance(resultat,list): #es tracta d'una funció per guardar 
-            #hem limitat el maxim de funcions a 5, si s'entren de noves es fa FIFO
-            functions.append(getFunx(resultat))
-            if len(functions) > 8: functions.pop(0)
 
         return render_template('base.html', results=resultats, functions=functions)
 

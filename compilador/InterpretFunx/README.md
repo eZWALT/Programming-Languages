@@ -1,7 +1,7 @@
 # Interpret Funx:
 
 `Funx` és un llenguatge de programació orientat a expressions i funcions. Amb Funx podem definir funcions i acabar, opcionalment, amb una expressió. Es basa en un sistema simple d'entrada i sortida, pensat per
-processar calculs sense haber-se de preocupar de la gestió de tipus, nuls, memoria ... Està ideat per facilitar al usuari el màxim possible la programació (Evitant errors inecessàris) dotan-lo d'una practicitat inigualable.
+processar calculs sense haber-se de preocupar de la gestió de tipus, nuls, memoria ... Està ideat per facilitar al usuari el màxim possible la programació (Evitant errors inecessàris) dotan-lo d'una practicitat inigualable. Com molts llenguatges actuals , te present les funcions d'ordre superior, una part important de la programació funcional.
 
 
 
@@ -60,7 +60,7 @@ Aquest llenguatge compta amb molts operadors clàssics com `+` , `-`, `*`, `/`, 
 -``` !true || (2^10 > 10^2)``` s'evalua a cert
 
 #### Funcions
-El punt principal del llenguatge son les funcions, les quals són creades amb un nom que comença en majuscula i una llista de parametres , seguit d'un programa tancat per claudators. Els unics return types que existeixen són void, enter o boolea (Els quals tots son implicits, realment totes les funcions retornen None o un enter, que pot ser interpretat com boolea) que no necessiten keyword `return`, simplement necessiten una avaluació de expressio final. Funx compta amb subrutines i recursivitat, llavors qualsevol funció pot invocar-se a si mateixa o cridar altres funcions durant l'execució d'aquesta. A continuació exemplifico algunes funcions que he creat per demostrar la potència i expressivitat del llenguatge:
+El punt principal del llenguatge son les funcions, les quals són creades amb un nom que comença en majuscula i una llista de parametres , seguit d'un programa tancat per claudators. Els unics return types que existeixen són void, enter o boolea (Els quals tots son implicits, realment totes les funcions retornen None o un enter, que pot ser interpretat com boolea) que no necessiten keyword `return`, simplement necessiten una avaluació de expressio final. Funx compta amb subrutines, recursivitat i accepta funcions com a parametres, llavors qualsevol funció pot invocar-se a si mateixa o cridar altres funcions durant l'execució d'aquesta. A continuació exemplifico algunes funcions que he creat per demostrar la potència i expressivitat del llenguatge:
 
 ```
 # Aquesta funcio es el sumatori dels nombres naturals desde 1 fins a n
@@ -144,6 +144,31 @@ MCD 6 8
 OUT: 2
 ```
 
+```
+# Aquesta funcio per aproximar (de manera poc precisa ja que Funx no te coma flotant) 
+# es d'ordre superior ja que accepta altres funcions com a parametres
+# Si contessim amb coma flotant, en comptes de usar h = 1 , podriem fer servir h = 0.0000000....1 que donaria millors resultats 
+# d f(x) / dx    es pot aproximar com Lim(h->0)  (f(x+h) - f(x)) / h
+
+AproximacioDeriavada Funcio x 
+{
+  h <- 1
+
+  ( (Funcio x+h)  - (Funcio x) ) / h
+}
+
+Funcio x 
+{
+  x * x 
+}
+
+AproximacioDerivada Funcio 100
+``` 
+
+```
+OUT: 201
+```
+
 
 ## Nota al Corrector
 Primer de tot m'agradaria recalcar que he fet alguns canvis respecte al enunciat, he afegit 3 excepcions noves: excepcio de variable no declarada i excepcio de for mal programat (iteren rangs de nombres buits).
@@ -185,10 +210,11 @@ En aquest apartat lo únic que he afegit es la possibilitat de afegir un únic e
 
 -`if cond {} else if cond {} else {}`
 
+###
 
 
 ## Agraiments i Desagraiments
-Aquest treball no podria haber sigut possible sense l'ajut de en Gerard Escudero Bakx, del qual vaig aprendre que la gracia de tot,de fet, resideix en les funcions d'ordre superior.
+Aquest treball no podria haber sigut possible sense l'ajut de en Gerard Escudero Bakx, del qual vaig aprendre que la gracia de tot,de fet, resideix en les funcions d'ordre superior :) (per aquest mateix motiu estan presents a aquesta pràctica)
 També he d'agrair a l'Alex Herrero Bravo i en Pol Roca (Son del nostre subgrup de lab) per haber-me ajudat amb certs bugs i a entendre com usar flask i jinja.
 
 Aquest treball podria haber sigut acabat molt més ràpid i amb molta més qualitat si no hagues sigut per culpa de Manjaro que rebenta amb una facilitat increible (Gracies comunitat de Arch Linux per res :D )

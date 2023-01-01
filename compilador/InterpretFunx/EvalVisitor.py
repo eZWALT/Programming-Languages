@@ -22,8 +22,10 @@ class EvalVisitor(ExprVisitor):
     def visitArithmetic(self, ctx):
         l = list(ctx.getChildren())
         operator = l[1].getText() 
-        if operator == "/":
-            assert (int(l[2].getText()) != 0), "Execution Error: Unable to divide by 0"
+        if operator == '/':
+            if int(self.visit(l[2])) == 0:
+                raise Exception("Execution Error: Unable to divide by 0")
+
         return (ArithmeticDicc[operator] ((int(self.visit(l[0])) ) ,(int(self.visit(l[2])))))   #nomes hi han operacions aritmetiques binaries
 
     def visitLogic(self,ctx): 
@@ -53,10 +55,12 @@ class EvalVisitor(ExprVisitor):
         else: 
             return 0
 
+
     def visitVariable(self,ctx):                                                                #Serveix per evaluar variables del ambit de visibilitat local                
         l = list(ctx.getChildren())
         ID = l[0].getText()
-        assert (ID in SymbolTable[-1]), "Execution Error: Variable " + ID + " may no exist or may not be used in this scope"
+        if not ID in SymbolTable[-1]: 
+            raise Exception("Execution Error: Variable " + str(ID) + " may no exist or may not be used in this scope")
         return int(SymbolTable[-1][ID])     
 
     def visitCall(self,ctx):                                                                    # Evaluació de crides a funcions                                               
@@ -66,20 +70,37 @@ class EvalVisitor(ExprVisitor):
         #Creem un nou ambit de visibilitat
         SM = {}
         #A continuacio testejem possibles errores en l'execucio d'una funcio
-
-        assert(ID in FunctionTable), "Execution Error: This function hasn't been declared yet"   
+   
+        if not (ID) in FunctionTable:
+            raise Exception("Execution Error: This function hasn't been declared yet")
         (block,parameters) = FunctionTable[ID]
-        assert (len(l[1:]) == len(parameters)), "Execution Error: Not enough parameters provided in function call: " + ID + " expected: " + len(l[1:]) + " , given: " + len(parameters)
+
+        if len(l[1:]) != len(parameters):
+            raise Exception("Execution Error: Not enough parameters provided in function call: " + str(ID) + " expected: " + str(len(parameters)) + " , given: " + str(len(l[1:])))
 
         #Asignem en el ambit local totes les variables amb els noms corresponents als parametres 
+
+        FunctionsToPop = []
+
         for index in range(0,len(parameters)):                          #tots els fills, a excepcio del primer són els multiplearametres
-            SM[parameters[index].getText()] = self.visit(l[index+1])
+            if str(parameters[index])[0].islower():
+               SM[parameters[index]] = self.visit(l[index+1])
+            else:
+                tuple = FunctionTable[(l[index+1]).getText()]
+                FunctionTable[parameters[index]] = tuple
+                FunctionsToPop.append(parameters[index])                #Aquesta llista conté totes les funcions parametres que serán eliminades al acabar l'execució
+
+    
 
         #executem la funció 
         SymbolTable.append(SM)
         returnvalue = self.visit(block)
         #Destruim el ambit de visibilitat
         SymbolTable.pop()
+
+        for f in FunctionsToPop:
+            FunctionTable.pop(f)
+        #eliminem totes les funcions auxiliars creades per ser usades com parametres un cop executem la funcio
 
         return returnvalue
 
@@ -93,7 +114,8 @@ class EvalVisitor(ExprVisitor):
     def visitDeclaration(self, ctx: ExprParser.DeclarationContext):
         l = list(ctx.getChildren())
         function_ID = l[0].getText()        #tots els parametres venen a continuacio
-        assert (not function_ID in FunctionTable), "Declaration Error: A function with this name already exists!"
+        if function_ID in  FunctionTable:
+            raise Exception("Declaration Error: A function with this name already exists!")
 
         block = None
         parameters = []
@@ -101,8 +123,10 @@ class EvalVisitor(ExprVisitor):
             if i == l[-1]: 
                 block = i
             else:
-                assert(not i in parameters), "Declaration Erorr: This function already has a parameter named: " + i
-                parameters.append(i)
+                y = str(i.getText())
+                if y  in parameters: 
+                    raise Exception("Declaration Error: This function already has a parameter named: " + y)
+                parameters.append(y)
 
         FunctionTable[function_ID] = (block,parameters) #nova entrada a la taula de funcions
         return ([function_ID] + parameters)        
@@ -168,7 +192,8 @@ class EvalVisitor(ExprVisitor):
             #Bucles for, en dos gustos: to i downto (for ascendent i descendent), sempre iteren amb step 1
             if begin != end:
                 if l[5].getText() == "to":
-                    assert (begin < end), "Coding Error: for can't iterate throught a negative range of numbers???)"
+                    if begin > end: 
+                        raise Exception("Coding Error: for can't iterate throught a negative range of numbers???")
                     SymbolTable[-1][ID] = begin
 
                     while SymbolTable[-1][ID] < end:
@@ -177,7 +202,8 @@ class EvalVisitor(ExprVisitor):
                         SymbolTable[-1][ID] += 1
 
                 else:
-                    assert (begin > end), "Coding Error: for can't iterate throught a negative range of numbers???"
+                    if begin < end: 
+                        raise Exception("Coding Error: for can't iterate throught a negative range of numbers???")
                     SymbolTable[-1][ID] = begin
 
                     while SymbolTable[-1][ID] > end:
