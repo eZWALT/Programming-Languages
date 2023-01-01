@@ -22,18 +22,18 @@ class EvalVisitor(ExprVisitor):
     def visitArithmetic(self, ctx):
         l = list(ctx.getChildren())
         operator = l[1].getText() 
-        if operator == '/':
+        if operator == "/":
             if int(self.visit(l[2])) == 0:
                 raise Exception("Execution Error: Unable to divide by 0")
 
-        return (ArithmeticDicc[operator] ((int(self.visit(l[0])) ) ,(int(self.visit(l[2])))))   #nomes hi han operacions aritmetiques binaries
+        return int (ArithmeticDicc[operator] ((int(self.visit(l[0])) ) ,(int(self.visit(l[2])))))   #nomes hi han operacions aritmetiques binaries
 
     def visitLogic(self,ctx): 
         l = list(ctx.getChildren())
         operator = l[1].getText()
         checknot = l[0].getText()
         if checknot == "!":                                                                     #cas 1: not llogica
-            return not int(self.visit(l[1]))    
+            return int (not int(self.visit(l[1])))        
         else:            
             return int(bool(LogicDicc[operator] ((int(self.visit(l[0]))),(int(self.visit(l[2])))) ))  #cas 2: diferents operacions binaries com comparacions i portes llogiques
 
