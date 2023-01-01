@@ -173,7 +173,7 @@ OUT: 201
 ## Nota al Corrector
 Primer de tot m'agradaria recalcar que he fet alguns canvis respecte al enunciat, he afegit 3 excepcions noves: excepcio de variable no declarada i excepcio de for mal programat (iteren rangs de nombres buits).
 
-A més a més he afegit diversos bucles com els 2 tipus de fors i el do-while, a més a més de condicionals amb un posible else-if per fer un xic més flexible el programa. Finalment hi han força més operadors dels demanats, però vaig pensar que farien que el llenguatge fos força més complert (Com els operadors llogics).
+A més a més he afegit diversos bucles com els 2 tipus de fors i el do-while, a més a més de condicionals amb un posible else-if per fer un xic més flexible el programa. Finalment hi han força més operadors dels demanats, però vaig pensar que farien que el llenguatge fos força més complert (Com els operadors llogics). A més a més s'han afegit les funcions d'ordre superior
 
 També m'he ajudat de la famosa inteligencia artificial, `chatgpt` per aprendre i generar la part de flask (La part html l'he desenvolupat de manera un xic més manual) i finalment he comprovat exhaustivament que efectivament el funcionament de la web fos l'esperat (a part de desenes de modificacions i re-estructuracions manuals, pero per començar em va ser util)
 
@@ -210,7 +210,10 @@ En aquest apartat lo únic que he afegit es la possibilitat de afegir un únic e
 
 -`if cond {} else if cond {} else {}`
 
-###
+### Funcions d'ordre superior
+Vaig pensar que despres d'utilitzar funcions d'ordre superior tot el quadrimestre a LP, seria interesant programarles i no ha sigut massa dificil, aunque no m'acaba d'agradar del tot el fet que faig servir la taula de funcions per les funcions "globals" i per les funcions "locals", al igual que les variables hauria d'haver creat una pila. Pero tal i com ha anat progressant el codi , ara em resulta dificil fer aquest canvi (Es guanyaria mantenibilitat de codi, pero com no tinc pensant expandirlo m'es indiferent). Llavors passar funcions com a parametres es possible! En els exemples de codi he posat un exemple de l'aproximació de derivades força entenedor usant la diferencia de quocients de Newton. 
+
+-`FuncioOrdreSuperior Funcio x y {Funcio (x ^ y)}`
 
 
 ## Agraiments i Desagraiments
