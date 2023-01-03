@@ -5,17 +5,17 @@ root : declaration* expr* EOF ;
 expr :  '(' expr ')'                     #unary
     | '-' expr                             #unary
     | ID                                 #variable
+    | 'true'                             #values
+    | 'false'                            #values 
+    |  NUM                               #unary
     | <assoc=right> expr EXP expr        #arithmetic
     | expr (DIV | PROD | MOD) expr       #arithmetic
     | expr (SUM | SUB) expr              #arithmetic
     | expr (LESSEQ | LESS | GREATEREQ | GREATER) expr   #logic
     | expr (NOTEQ | EQ) expr                            #logic
     | NOT expr                                          #logic         
-    | expr (AND | OR | IMPLIES) expr                    #logic
-    | NUM                                               #unary                                          
-    | FUNCTIONID (FUNCTIONID | expr)*                   #call
-    | 'true'                                            #values
-    | 'false'                                           #values 
+    | expr (AND | OR | IMPLIES) expr                    #logic                                                                                
+    | FUNCTIONID (FUNCTIONID | expr)*                   #call                                      
     ;                 
 
 declaration: FUNCTIONID (ID | FUNCTIONID)* block;
